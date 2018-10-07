@@ -2,14 +2,13 @@ const request = require('request');
 const yargs = require('yargs');
 
 const args = yargs
-  .command('weather', 'Get weather for the specified location', {
+  .options({
     address: {
       describe: 'The address to look up for the weather',
       demand: true,
       alias: 'a'
     }
   })
-  .help()
   .argv;
 
 const buildGeocodeURL = (address) => {
@@ -20,5 +19,7 @@ request({
   url: buildGeocodeURL(args.address),
   json: true
 }, (error, respponse, body) => {
-  console.log(JSON.stringify(body, undefined, 2));
+  console.log(`Address: ${body.results[0].formatted_address}`);
+  console.log(`Latitude: body.results[0].geometry.location.lat`);
+  console.log(`Longitude: ${body.results[0].geometry.location.lng}`);
 });
