@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha server/server.test.js",
+    "test": "mocha spies/app.test.js",
     "test:watch": "nodemon --exec 'yarn test'"
   },
   "author": "Miguel Bolivar",
@@ -15,6 +15,7 @@
   "devDependencies": {
     "expect": "^23.6.0",
     "mocha": "^5.2.0",
+    "rewire": "^4.0.1",
     "supertest": "^3.3.0"
   }
 }
