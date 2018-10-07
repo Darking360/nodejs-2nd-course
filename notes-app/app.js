@@ -5,9 +5,26 @@ const os = require('os');
 const notes = require('./notes');
 
 const _ = require('lodash');
+const yargs = require('yargs');
 
 const user = os.userInfo();
 
-console.log(notes.add(2,5));
+const command = process.argv[2];
 
-fs.appendFile('greetings.txt', `Hello ${user.username} you are 24`);
+const args = yargs.argv;
+
+if (command == 'add') {
+  console.log('Adding note');
+  notes.addNote(args.title, args.body);
+} else if (command == 'list') {
+  console.log('Listing all notes');
+  notes.getAll();
+} else if (command == 'get') {
+  console.log('Getting a note');
+  notes.getNote(args.title)
+} else if (command == 'remove') {
+  console.log('Removing a note');
+  notes.removeNote(args.title);
+} else {
+  console.log('Command not recognized');
+}
