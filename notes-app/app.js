@@ -12,7 +12,7 @@ const user = os.userInfo();
 const command = process.argv[2];
 
 const args = yargs.argv;
-
+debugger;
 if (command == 'add') {
   console.log('Adding note');
   notes.addNote(args.title, args.body);
