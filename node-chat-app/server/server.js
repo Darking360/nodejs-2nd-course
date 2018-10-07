@@ -3,6 +3,7 @@ const path = require('path');
 const http = require('http');
 const socketIO = require('socket.io');
 const publicPath = path.join(__dirname, '../public');
+const { generateMessage } = require('./utils/message');
 
 let app = express();
 
@@ -14,6 +15,19 @@ let io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('New user connected!')
+
+  socket.emit('newMessage', generateMessage('Server', 'Hello from server'));
+
+  socket.on('createMessage', (message, callback) => {
+    console.log('Message from client');
+    console.log(message)
+    io.emit('newMessage', generateMessage(message.from, message.text));
+    callback();
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  })
 })
 
 app.use(express.static(publicPath));
