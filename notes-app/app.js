@@ -7,11 +7,38 @@ const notes = require('./notes');
 const _ = require('lodash');
 const yargs = require('yargs');
 
-const user = os.userInfo();
+const args = yargs.
+  command('add', 'Add a new note', {
+    title: {
+      describe: 'Title of note',
+      demand: true,
+      alias: 't'
+    },
+    body: {
+      describe: 'Body of the note',
+      demand: true,
+      alias: 'b'
+    },
+  })
+  .command('list', 'List all notes')
+  .command('get', 'Get a specific note', {
+    title: {
+      describe: 'Title of note to be found',
+      demand: true,
+      alias: 't'
+    }
+  })
+  .command('remove', 'Remove a specific note', {
+    title: {
+      describe: 'Title of note to be removed',
+      demand: true,
+      alias: 't'
+    }
+  })
+  .help()
+  .argv;
+const command = args._[0];
 
-const command = process.argv[2];
-
-const args = yargs.argv;
 debugger;
 if (command == 'add') {
   console.log('Adding note');
